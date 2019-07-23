@@ -1,39 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/tv"
-        android:layout_width="0dp"
-        android:layout_height="46dp"
-        android:gravity="center_vertical"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:textColor="#333333"
-        android:text="上一层"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <View
-        android:id="@+id/divider"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#e3e3e3"
-        app:layout_constraintTop_toBottomOf="@id/tv"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:orientation="horizontal">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divider"
-        app:layout_constraintBottom_toBottomOf="parent">
-    </android.support.v7.widget.RecyclerView>
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="14sp"
+            android:textColor="@color/text_black"
+            android:text="@string/ip"/>
 
-</android.support.constraint.ConstraintLayout>
+        <EditText
+            android:id="@+id/ip_et"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/text_black"
+            android:maxLines="1"
+            android:inputType="text"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="14sp"
+            android:textColor="@color/text_black"
+            android:text="@string/account"/>
+
+        <EditText
+            android:id="@+id/account_et"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/text_black"
+            android:maxLines="1"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="14sp"
+            android:textColor="@color/text_black"
+            android:text="@string/password"/>
+
+        <EditText
+            android:id="@+id/password_et"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/text_black"
+            android:maxLines="1"
+            android:inputType="textVisiblePassword" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="14sp"
+            android:textColor="@color/text_black"
+            android:text="@string/domain"/>
+
+        <EditText
+            android:id="@+id/domain_et"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/text_black"
+            android:maxLines="1"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/login_bt"
+        android:layout_width="200dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:background="@color/theme_color"
+        android:textColor="@color/text_white"
+        android:text="@string/login"/>
+</LinearLayout>

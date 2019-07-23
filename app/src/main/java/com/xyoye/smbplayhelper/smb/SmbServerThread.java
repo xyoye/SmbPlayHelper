@@ -18,15 +18,13 @@ import java.net.Socket;
  * Created by xyoye on 2019/7/18.
  */
 
-public class SmbServerThread extends Thread{
-    //是否关闭Smb文件数据流，当退出播放时为true
-    volatile static boolean closeSmbInputStream = false;
+public class SmbServerThread extends Thread {
     //包含请求内容的Socket
     private Socket socket;
     //获取视频内容及信息的接口
     private HttpContentListener httpContent;
 
-    SmbServerThread(Socket socket, HttpContentListener httpContentListener){
+    SmbServerThread(Socket socket, HttpContentListener httpContentListener) {
         this.socket = socket;
         this.httpContent = httpContentListener;
     }
@@ -42,65 +40,58 @@ public class SmbServerThread extends Thread{
 
         long[] requestRange = getRangeByRequestHeader(httpSocket);
         while (requestRange != null) {
-            if (closeSmbInputStream){
-                printLog("----- close smb file input stream -----");
-                try {
-                    httpContent.getContentInputStream().close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            }else {
-                handleHttpRequest(httpSocket, requestRange);
-            }
+            handleHttpRequest(httpSocket, requestRange);
             requestRange = getRangeByRequestHeader(httpSocket);
         }
         httpSocket.close();
     }
 
     //从请求头中读取range信息
-    private long[] getRangeByRequestHeader(HttpSocket socket){
+    private long[] getRangeByRequestHeader(HttpSocket socket) {
         printLog("----- read request header -----");
         InputStream inputStream = socket.getInputStream();
         BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
 
         String firstLine = readRequestHeaderLine(bufferedInputStream);
-        if (TextUtils.isEmpty(firstLine)){
+        if (TextUtils.isEmpty(firstLine)) {
             printLog("----- request header is empty -----");
             return null;
         }
 
         String headerLine = readRequestHeaderLine(bufferedInputStream);
-        while (!TextUtils.isEmpty(headerLine)){
+        while (!TextUtils.isEmpty(headerLine)) {
+            //Range : byte-
             int colonIdx = headerLine.indexOf(':');
             if (colonIdx > 0) {
+                //Range
                 String name = new String(headerLine.getBytes(), 0, colonIdx);
+                //(byte-) (byte 1-123) (byte -123)
                 String value = new String(headerLine.getBytes(), colonIdx + 1, headerLine.length() - colonIdx - 1);
-                if (name.equals("Range")){
+                if (name.equals("Range")) {
                     int cutIndex = value.indexOf("=");
-                    value = value.substring(cutIndex+1);
-                    if (value.contains("-")){
-                        if (value.startsWith("-")){
-                            value = "0"+value;
-                        }else if (value.endsWith("-")){
+                    value = value.substring(cutIndex + 1);
+                    if (value.contains("-")) {
+                        if (value.startsWith("-")) {
+                            value = "0" + value;
+                        } else if (value.endsWith("-")) {
                             value = value + "0";
                         }
                         String[] ranges = value.split("-");
                         long[] range = new long[2];
                         range[0] = Long.valueOf(ranges[0]);
                         range[1] = Long.valueOf(ranges[1]);
-                        printLog("----- read range success ----- :"+range[0] +"/"+ range[1]);
+                        printLog("----- read range success ----- :" + range[0] + "/" + range[1]);
                         return range;
                     }
                 }
             }
             headerLine = readRequestHeaderLine(bufferedInputStream);
         }
-        return null;
+        return new long[]{0, 0};
     }
 
     //按行读取头信息
-    private String readRequestHeaderLine(BufferedInputStream bufferedInputStream){
+    private String readRequestHeaderLine(BufferedInputStream bufferedInputStream) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         byte[] bytes = new byte[1];
         try {
@@ -135,7 +126,7 @@ public class SmbServerThread extends Thread{
         String contentType = httpContent.getContentType();
 
         long requestRangeStart = requestRange[0];
-        long requestRangeEnd = requestRange[1] <= 0 ? contentLength-1 : requestRange[1];
+        long requestRangeEnd = requestRange[1] <= 0 ? contentLength - 1 : requestRange[1];
 
         if (contentLength <= 0 || contentType.length() <= 0 || contentInputStream == null) {
             printLog("----- handle failed : smb file error -----");
@@ -188,8 +179,8 @@ public class SmbServerThread extends Thread{
 
             InputStream inputStream = response.getContentInputStream();
             if (contentOffset > 0) {
-                if (inputStream.skip(contentOffset) > 0){
-                    printLog("----- input stream skip -----:"+contentOffset);
+                if (inputStream.skip(contentOffset) > 0) {
+                    printLog("----- input stream skip -----:" + contentOffset);
                 }
             }
 
@@ -197,9 +188,9 @@ public class SmbServerThread extends Thread{
             byte[] readBuffer = new byte[bufferSize];
             long readTotalSize = 0;
             long readSize = (bufferSize > contentLength) ? contentLength : bufferSize;
-            int readLen = inputStream.read(readBuffer, 0, (int)readSize);
+            int readLen = inputStream.read(readBuffer, 0, (int) readSize);
 
-            printLog("----- send video data start -----:"+contentOffset);
+            printLog("----- send video data start -----:" + contentOffset);
             while (readLen > 0 && readTotalSize < contentLength) {
                 outputStream.write(readBuffer, 0, readLen);
                 outputStream.flush();
@@ -209,18 +200,18 @@ public class SmbServerThread extends Thread{
                         : bufferSize;
                 readLen = inputStream.read(readBuffer, 0, (int) readSize);
 
-                printLog("----- send video data success -----:"+readTotalSize+"/"+contentLength);
+                printLog("----- send video data success -----:" + readTotalSize + "/" + contentLength);
             }
-            printLog("----- send video data over -----:"+contentOffset);
+            printLog("----- send video data over -----:" + contentOffset);
             outputStream.flush();
         } catch (Exception e) {
-            printLog("----- send video data error -----:"+e.getMessage());
+            printLog("----- send video data error -----:" + e.getMessage());
             e.printStackTrace();
         }
     }
 
     //打印信息
-    private void printLog(String message){
+    private void printLog(String message) {
         System.out.println(message);
     }
 

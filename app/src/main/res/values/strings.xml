@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">SmbjDemo</string>
+    <string name="app_name">SmbPlayHelper</string>
+    <string name="ip">IP：</string>
+    <string name="account">ACCOUNT：</string>
+    <string name="password">PASSWORD：</string>
+    <string name="domain">DOMAIN：</string>
+    <string name="login">LOGIN</string>
+    <string name="parent_dir">上一层</string>
 </resources>

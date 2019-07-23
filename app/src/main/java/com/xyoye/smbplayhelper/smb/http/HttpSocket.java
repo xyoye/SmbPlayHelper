@@ -47,6 +47,10 @@ public class HttpSocket {
         close();
     }
 
+    public boolean isClosed(){
+        return mSocket.isClosed();
+    }
+
     public InputStream getInputStream() {
         return socketInputStream;
     }

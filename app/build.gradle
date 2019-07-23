@@ -33,9 +33,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.android.support:multidex:1.0.3'
 
-    implementation ('com.github.rapid7:smbj-rpc:0.10.0', {
-        exclude module: "smbj"
-    })
-    implementation 'com.hierynomus:smbj:0.9.1'
+    implementation 'eu.agno3.jcifs:jcifs-ng:2.1.3'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
 }

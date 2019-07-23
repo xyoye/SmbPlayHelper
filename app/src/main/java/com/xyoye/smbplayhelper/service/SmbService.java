@@ -1,4 +1,4 @@
-package com.xyoye.smbplayhelper;
+package com.xyoye.smbplayhelper.service;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -10,18 +10,15 @@ import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
+import com.xyoye.smbplayhelper.R;
 import com.xyoye.smbplayhelper.smb.SmbServer;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 /**
- * Created by xyoye on 2018/11/22.
+ * Created by xyoye on 2019/7/23.
  */
 
 public class SmbService extends Service {
-    private int NOTIFICATION_ID = 2;
+    private int NOTIFICATION_ID = 1001;
 
     private SmbServer smbServer = null;
     private NotificationManager notificationManager;
@@ -34,9 +31,8 @@ public class SmbService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        //创建NotificationChannel
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("com.xyoye.smbjdemo.smbservice.playchannel", "SMB服务", NotificationManager.IMPORTANCE_LOW);
+            NotificationChannel channel = new NotificationChannel("com.xyoye.smbplayhelper.smbservice.playchannel", "SMB服务", NotificationManager.IMPORTANCE_LOW);
             channel.enableVibration(false);
             channel.setVibrationPattern(new long[]{0});
             channel.enableLights(false);
@@ -45,23 +41,22 @@ public class SmbService extends Service {
                 notificationManager.createNotificationChannel(channel);
             }
         }
-        startForeground(NOTIFICATION_ID, buildNotification(intent));
+        startForeground(NOTIFICATION_ID, buildNotification());
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        EventBus.getDefault().register(this);
         smbServer = new SmbServer();
         smbServer.start();
 
     }
 
-    private Notification buildNotification(Intent oldIntent) {
+    private Notification buildNotification() {
         Notification.Builder builder = new Notification.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("SmbjDemo")
+                .setContentTitle("SmbPlayHelper")
                 .setContentText("已开启SMB服务")
                 .setPriority(Notification.PRIORITY_DEFAULT)
                 .setContentIntent(null)
@@ -71,7 +66,7 @@ public class SmbService extends Service {
                 .setSound(null);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            builder.setChannelId("com.xyoye.smbjdemo.smbservice.playchannel");
+            builder.setChannelId("com.xyoye.smbplayhelper.smbservice.playchannel");
         }
         Notification notify = builder.build();
         notify.flags = Notification.FLAG_FOREGROUND_SERVICE;
@@ -81,7 +76,6 @@ public class SmbService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
         notificationManager.cancel(NOTIFICATION_ID);
         if (smbServer != null){
             smbServer.stopSmbServer();

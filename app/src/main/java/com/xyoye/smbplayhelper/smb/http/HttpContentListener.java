@@ -7,9 +7,18 @@ import java.io.InputStream;
  */
 
 public interface HttpContentListener {
+    /**
+     * 获取视频流
+     */
     InputStream getContentInputStream();
 
+    /**
+     * 获取视频类型
+     */
     String getContentType();
 
+    /**
+     * 获取视频长度
+     */
     long getContentLength();
 }

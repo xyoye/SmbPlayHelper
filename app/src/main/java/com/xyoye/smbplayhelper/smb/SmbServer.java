@@ -2,7 +2,6 @@ package com.xyoye.smbplayhelper.smb;
 
 import android.text.TextUtils;
 
-import com.xyoye.smbplayhelper.smb.file.SmbChildFile;
 import com.xyoye.smbplayhelper.smb.http.HttpContentListener;
 
 import java.io.File;
@@ -17,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import jcifs.smb.SmbFile;
+
 /**
  * Created by xyoye on 2019/7/18.
  */
@@ -28,24 +29,19 @@ public class SmbServer extends Thread implements HttpContentListener {
     public static String SMB_IP = "";
 
     //smb文件，用于获取视频内容及信息
-    private static SmbChildFile smbChildFile;
+    private static SmbFile playSmbFile;
 
     //用于接收客户端（播放器）请求的Socket
     private ServerSocket serverSocket = null;
     //本地可用IP地址列表
     private List<InetAddress> inetAddressList;
 
-    public static void setPlaySmbFile(SmbChildFile playSmbChildFile) {
-        smbChildFile = playSmbChildFile;
-        SmbServerThread.closeSmbInputStream = false;
-    }
-
     public SmbServer() {
         getInetAddressList();
     }
 
-    public void closeSmbInputStream(){
-        SmbServerThread.closeSmbInputStream = true;
+    public static void setPlaySmbFile(SmbFile smbFile) {
+        playSmbFile = smbFile;
     }
 
     public void stopSmbServer() {
@@ -141,13 +137,19 @@ public class SmbServer extends Thread implements HttpContentListener {
     @Override
     //获取视频内容
     public InputStream getContentInputStream() {
-        return smbChildFile.getInputStream();
+        InputStream inputStream = null;
+        try {
+            inputStream = playSmbFile.getInputStream();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return inputStream;
     }
 
     @Override
     //获取视频格式
     public String getContentType() {
-        String smbFilePath = smbChildFile.getSmbPath();
+        String smbFilePath = playSmbFile.getPath();
         if (TextUtils.isEmpty(smbFilePath))
             return "";
         int lastPoi = smbFilePath.lastIndexOf('.');
@@ -159,6 +161,6 @@ public class SmbServer extends Thread implements HttpContentListener {
     @Override
     //获取视频长度
     public long getContentLength() {
-        return smbChildFile.getFileSize();
+        return playSmbFile.getContentLengthLong();
     }
 }
