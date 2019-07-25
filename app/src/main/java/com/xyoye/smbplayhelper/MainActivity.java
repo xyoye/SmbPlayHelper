@@ -7,6 +7,9 @@ import android.widget.EditText;
 
 import com.xyoye.smbplayhelper.bean.LoginBean;
 
+/**
+ * 登录界面
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override

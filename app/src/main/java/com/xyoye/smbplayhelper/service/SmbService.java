@@ -15,6 +15,8 @@ import com.xyoye.smbplayhelper.smb.SmbServer;
 
 /**
  * Created by xyoye on 2019/7/23.
+ *
+ * 局域网视频播放服务
  */
 
 public class SmbService extends Service {

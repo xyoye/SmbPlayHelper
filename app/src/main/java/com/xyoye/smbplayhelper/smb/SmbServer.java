@@ -20,6 +20,8 @@ import jcifs.smb.SmbFile;
 
 /**
  * Created by xyoye on 2019/7/18.
+ *
+ * 接收请求
  */
 
 public class SmbServer extends Thread implements HttpContentListener {

@@ -35,6 +35,10 @@ import jcifs.smb.NtlmPasswordAuthenticator;
 import jcifs.smb.SmbException;
 import jcifs.smb.SmbFile;
 
+/**
+ * 局域网文件浏览界面
+ */
+
 public class SmbFileActivity extends AppCompatActivity {
 
     private TextView parentTv;

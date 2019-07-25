@@ -1,6 +1,8 @@
 package com.xyoye.smbplayhelper.smb.http;
 
-
+/**
+ * Http状态码
+ */
 public class HttpStatus {
     //请求者应当继续提出请求。服务器返回此代码则意味着，服务器已收到了请求的第一部分，现正在等待接收其余部分。
     public static final int CONTINUE = 100;

@@ -4,6 +4,8 @@ import java.io.InputStream;
 
 /**
  * Created by xyoye on 2019/7/15.
+ *
+ * 响应头封装
  */
 public class HttpResponse{
     //内容

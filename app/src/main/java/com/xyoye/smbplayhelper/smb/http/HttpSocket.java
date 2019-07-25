@@ -6,6 +6,8 @@ import java.net.Socket;
 
 /**
  * Created by xyoye on 2019/7/15.
+ *
+ * Socket封装
  */
 public class HttpSocket {
     private Socket mSocket;

@@ -16,6 +16,8 @@ import java.net.Socket;
 
 /**
  * Created by xyoye on 2019/7/18.
+ *
+ * 处理请求，返回响应
  */
 
 public class SmbServerThread extends Thread {
@@ -171,6 +173,7 @@ public class SmbServerThread extends Thread {
             //必须返回！！！
             outputStream.write("\r\n".getBytes());
 
+            //无法处理的请求
             if (badRequest) {
                 outputStream.flush();
                 printLog("----- return bad response -----");
