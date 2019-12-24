@@ -1,6 +1,6 @@
 # SmbPlayHelper #
 
-Android端通过创建本地服务实现局域网内视频播放，相关技术实现的介绍可查看[《关于实现局域网内视频播放》](https://xyoye.github.io/2019/07/25/关于实现局域网内视频播放.html)
+Android端通过创建本地服务实现局域网内视频播放，相关技术实现的介绍可查看[《关于实现局域网内视频播放》](https://xyoye.github.io/2019/07/25/2019-7-25-%E5%85%B3%E4%BA%8E%E5%AE%9E%E7%8E%B0%E5%B1%80%E5%9F%9F%E7%BD%91%E5%86%85%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE/)
 
 1. 从[弹弹Player 概念版](https://github.com/xyoye/DanDanPlayForAndroid)中抽离出来的局域网播放功能，通过创建本地服务，将Smb文件转换成Http协议传输文件流形式实现局域网内视频的播放。
 
