@@ -16,7 +16,7 @@ import java.net.Socket;
 
 /**
  * Created by xyoye on 2019/7/18.
- *
+ * <p>
  * 处理请求，返回响应
  */
 
@@ -132,6 +132,7 @@ public class SmbServerThread extends Thread {
 
         if (contentLength <= 0 || contentType.length() <= 0 || contentInputStream == null) {
             printLog("----- handle failed : smb file error -----");
+            printLog("----- length:" + contentLength + " stream:" + (contentInputStream == null) + " -----");
             HttpResponse badResponse = new HttpResponse();
             badResponse.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
             badResponse.setContentLength(0);

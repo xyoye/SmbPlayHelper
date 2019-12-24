@@ -6,106 +6,268 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="49dp">
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="15dp"
+                    android:layout_centerVertical="true"
+                    android:background="#4A90E2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="16dp"
+                    android:text="登录信息"
+                    android:textColor="#333"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginEnd="17dp"
+                android:background="@drawable/background_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="17dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="78dp"
+                    android:layout_height="wrap_content"
+                    android:text="IP"
+                    android:textColor="#666"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/ip_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:hint="请输入IP地址"
+                    android:maxLines="1"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:singleLine="true"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="17dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="78dp"
+                    android:layout_height="wrap_content"
+                    android:text="Account"
+                    android:textColor="#666"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/account_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:hint="请输入帐号"
+                    android:maxLines="1"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:singleLine="true"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="17dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="78dp"
+                    android:layout_height="wrap_content"
+                    android:text="Password"
+                    android:textColor="#666"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/password_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:hint="请输入密码"
+                    android:maxLines="1"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:singleLine="true"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="17dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="78dp"
+                    android:layout_height="wrap_content"
+                    android:text="Domain"
+                    android:textColor="#666"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/domain_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:hint="请输入域 (可忽略)"
+                    android:maxLines="1"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:singleLine="true"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="17dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="78dp"
+                    android:layout_height="wrap_content"
+                    android:text="Share"
+                    android:textColor="#666"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/share_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#fff"
+                    android:hint="请输入根路径 (可忽略)"
+                    android:maxLines="1"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:singleLine="true"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="17dp">
+
+                <CheckBox
+                    android:id="@+id/anonymous_cb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="匿名登录"
+                    android:textColor="#666"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="100dp"
+        <CheckBox
+            android:id="@+id/smb_rpc_cb"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:textSize="14sp"
-            android:textColor="@color/text_black"
-            android:text="@string/ip"/>
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="SMBJ_RPC" />
 
-        <EditText
-            android:id="@+id/ip_et"
-            android:layout_width="250dp"
+        <CheckBox
+            android:id="@+id/jcifs_ng_cb"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/text_black"
-            android:maxLines="1"
-            android:inputType="text"/>
-    </LinearLayout>
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="JCIFS_NG" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="100dp"
+        <CheckBox
+            android:id="@+id/smb_cb"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:textSize="14sp"
-            android:textColor="@color/text_black"
-            android:text="@string/account"/>
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="SMBJ" />
 
-        <EditText
-            android:id="@+id/account_et"
-            android:layout_width="250dp"
+        <CheckBox
+            android:id="@+id/jcifs_cb"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/text_black"
-            android:maxLines="1"
-            android:inputType="text" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:textSize="14sp"
-            android:textColor="@color/text_black"
-            android:text="@string/password"/>
-
-        <EditText
-            android:id="@+id/password_et"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/text_black"
-            android:maxLines="1"
-            android:inputType="textVisiblePassword" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:textSize="14sp"
-            android:textColor="@color/text_black"
-            android:text="@string/domain"/>
-
-        <EditText
-            android:id="@+id/domain_et"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/text_black"
-            android:maxLines="1"
-            android:inputType="text" />
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:text="JCIFS" />
     </LinearLayout>
 
     <Button
         android:id="@+id/login_bt"
-        android:layout_width="200dp"
-        android:layout_height="45dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
-        android:background="@color/theme_color"
-        android:textColor="@color/text_white"
-        android:text="@string/login"/>
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/btn_corner_blue"
+        android:text="登录"
+        android:textColor="#fff"
+        android:textSize="16sp" />
 </LinearLayout>
