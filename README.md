@@ -4,7 +4,7 @@ Android端通过创建本地服务实现局域网内视频播放，相关技术�
 
 1. 从[弹弹Player 概念版](https://github.com/xyoye/DanDanPlayForAndroid)中抽离出来的局域网播放功能，通过创建本地服务，将Smb文件转换成Http协议传输文件流形式实现局域网内视频的播放。
 
-2. 项目中使用[jcifs-ng](https://github.com/AgNO3/jcifs-ng)实现局域网文件浏览，没有播放器的实现，仅作为服务端，可选取手机上已安装的视频播放播放视频。
+2. 项目中使用[smbj-rpc](https://github.com/rapid7/smbj-rpc)、[smbj](https://github.com/hierynomus/smbj)、[jcifs-ng](https://github.com/AgNO3/jcifs-ng)、[jcifs](https://www.jcifs.org/)实现局域网文件浏览，理论上支持SmbV1、SmbV2、SmbV3，项目没有播放器的实现，仅作为服务端，可选取手机上已安装的视频播放播放视频。
 
 ## 截图 ##
 
