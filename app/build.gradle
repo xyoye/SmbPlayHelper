@@ -35,6 +35,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
 
-    //implementation project(':libsmb')
-    implementation files('libs/libsmb.jar')
+    //implementation project(':libsmb_kotlin')
+    implementation project(':libsmb')
+    //implementation files('libs/libsmb.jar')
 }

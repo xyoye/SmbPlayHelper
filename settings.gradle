@@ -1,1 +1,1 @@
-include ':app', ':libsmb'
+include ':app', ':libsmb', ':libsmb_kotlin'

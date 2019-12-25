@@ -40,8 +40,6 @@ public class SMBJ_RPCController implements Controller {
     private static final String ROOT_FLAG = "";
 
     private String mPath;
-    private String lastOpenFilePath;
-    private long fileLength;
     private List<SmbFileInfo> rootFileList;
 
     private SMBClient smbClient;
@@ -163,14 +161,10 @@ public class SMBJ_RPCController implements Controller {
     @Override
     public InputStream getFileInputStream(String fileName) {
         String filePath = getPathNotShare(fileName);
-        if (filePath.equals(lastOpenFilePath)) {
-            return inputStream;
-        }
 
         try {
             File file = openFile(diskShare, filePath);
             inputStream = file.getInputStream();
-            lastOpenFilePath = filePath;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -180,16 +174,11 @@ public class SMBJ_RPCController implements Controller {
     @Override
     public long getFileLength(String fileName) {
         String filePath = getPathNotShare(fileName);
-        if (filePath.equals(lastOpenFilePath)) {
-            return fileLength;
-        }
 
         try {
             File file = openFile(diskShare, filePath);
             FileStandardInformation standardInfo = file.getFileInformation(FileStandardInformation.class);
-            fileLength = standardInfo.getEndOfFile();
-            lastOpenFilePath = filePath;
-            return fileLength;
+            return standardInfo.getEndOfFile();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -208,9 +197,6 @@ public class SMBJ_RPCController implements Controller {
 
     @Override
     public void release() {
-        fileLength = 0;
-        lastOpenFilePath = "";
-
         try {
             if (inputStream != null)
                 inputStream.close();

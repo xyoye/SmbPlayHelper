@@ -37,8 +37,6 @@ public class SMBJController implements Controller {
 
     private String ROOT_FLAG = "\\";
     private String mPath;
-    private String lastOpenFilePath;
-    private long fileLength;
     private DiskShare diskShare;
     private List<SmbFileInfo> rootFileList;
 
@@ -144,14 +142,10 @@ public class SMBJController implements Controller {
     @Override
     public InputStream getFileInputStream(String fileName) {
         String filePath = getPathNotShare(fileName);
-        if (filePath.equals(lastOpenFilePath)) {
-            return inputStream;
-        }
 
         try {
             File file = openFile(diskShare, filePath);
             inputStream = file.getInputStream();
-            lastOpenFilePath = filePath;
             return inputStream;
         } catch (Exception e) {
             e.printStackTrace();
@@ -162,16 +156,11 @@ public class SMBJController implements Controller {
     @Override
     public long getFileLength(String fileName) {
         String filePath = getPathNotShare(fileName);
-        if (filePath.equals(lastOpenFilePath)) {
-            return fileLength;
-        }
 
         try {
             File file = openFile(diskShare, filePath);
             FileStandardInformation standardInfo = file.getFileInformation(FileStandardInformation.class);
-            fileLength = standardInfo.getEndOfFile();
-            lastOpenFilePath = filePath;
-            return fileLength;
+            return standardInfo.getEndOfFile();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -190,8 +179,6 @@ public class SMBJController implements Controller {
 
     @Override
     public void release() {
-        fileLength = 0;
-        lastOpenFilePath = "";
         try {
             if (inputStream != null)
                 inputStream.close();
