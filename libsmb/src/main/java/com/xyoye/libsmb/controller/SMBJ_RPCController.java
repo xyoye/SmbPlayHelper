@@ -163,7 +163,7 @@ public class SMBJ_RPCController implements Controller {
     @Override
     public InputStream getFileInputStream(String fileName) {
         String filePath = getPathNotShare(fileName);
-        if (fileName.equals(lastOpenFilePath)) {
+        if (filePath.equals(lastOpenFilePath)) {
             return inputStream;
         }
 
@@ -180,7 +180,7 @@ public class SMBJ_RPCController implements Controller {
     @Override
     public long getFileLength(String fileName) {
         String filePath = getPathNotShare(fileName);
-        if (fileName.equals(lastOpenFilePath)) {
+        if (filePath.equals(lastOpenFilePath)) {
             return fileLength;
         }
 
