@@ -70,7 +70,7 @@ public class SmbManager {
 
         if (jcifsNGEnable) {
             if (linkCallback != null)
-                linkCallback.onLinkChange("SMBJ");
+                linkCallback.onLinkChange("JCIFS_NG");
             controller = new JCIFS_NGController();
             if (controller.linkStart(smbLinkInfo, smbLinkException)) {
                 mSmbType = SmbType.JCIFS_NG;
@@ -82,7 +82,7 @@ public class SmbManager {
 
         if (smbJEnable && !SmbUtils.isTextEmpty(smbLinkInfo.getRootFolder())) {
             if (linkCallback != null)
-                linkCallback.onLinkChange("JCIFS_NG");
+                linkCallback.onLinkChange("SMBJ");
             controller = new SMBJController();
             if (controller.linkStart(smbLinkInfo, smbLinkException)) {
                 mSmbType = SmbType.SMBJ;
