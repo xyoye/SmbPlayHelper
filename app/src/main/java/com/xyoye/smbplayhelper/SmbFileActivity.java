@@ -61,10 +61,10 @@ public class SmbFileActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            new Thread(() -> {
+            IApplication.getExecutor().submit(() -> {
                 SmbManager.getInstance().getController().release();
                 SmbFileActivity.this.finish();
-            }).start();
+            });
         } else if (item.getItemId() == R.id.previous_item) {
             getParentData();
         }
@@ -102,7 +102,7 @@ public class SmbFileActivity extends AppCompatActivity {
      * 获取当前文件文件列表
      */
     private void getSelfData() {
-        new Thread(() -> {
+        IApplication.getExecutor().submit(() -> {
             List<SmbFileInfo> fileList = smbManager.getController().getSelfList();
             String currentPath = smbManager.getController().getCurrentPath();
             String type = smbManager.getController().getClass().getSimpleName();
@@ -113,7 +113,7 @@ public class SmbFileActivity extends AppCompatActivity {
                 pathTv.setText(currentPath);
                 setTitle(type.replace("Controller", ""));
             });
-        }).start();
+        });
     }
 
     /**
@@ -125,7 +125,7 @@ public class SmbFileActivity extends AppCompatActivity {
             return;
         }
 
-        new Thread(() -> {
+        IApplication.getExecutor().submit(() -> {
             List<SmbFileInfo> fileList = smbManager.getController().getParentList();
             String currentPath = smbManager.getController().getCurrentPath();
             runOnUiThread(() -> {
@@ -134,14 +134,14 @@ public class SmbFileActivity extends AppCompatActivity {
                 smbFileAdapter.notifyDataSetChanged();
                 pathTv.setText(currentPath);
             });
-        }).start();
+        });
     }
 
     /**
      * 打开文件夹
      */
     private void openDirectory(String dirName) {
-        new Thread(() -> {
+        IApplication.getExecutor().submit(() -> {
             List<SmbFileInfo> fileList = smbManager.getController().getChildList(dirName);
             String currentPath = smbManager.getController().getCurrentPath();
             runOnUiThread(() -> {
@@ -150,7 +150,7 @@ public class SmbFileActivity extends AppCompatActivity {
                 smbFileAdapter.notifyDataSetChanged();
                 pathTv.setText(currentPath);
             });
-        }).start();
+        });
     }
 
     /**

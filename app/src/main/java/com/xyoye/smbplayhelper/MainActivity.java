@@ -97,34 +97,21 @@ public class MainActivity extends AppCompatActivity {
         SPUtils.getInstance().putBoolean("anonymous_check", isAnonymous);
 
         loadingDialog.show();
-        new Thread(() -> {
+        IApplication.getExecutor().submit(() -> {
             SmbManager smbManager = SmbManager.getInstance();
             smbManager.setEnable(smbJRPCEnable, smbJEnable, jcifsNGEnable, jcifsEnable);
-            smbManager.setLinkCallback(new SmbManager.LinkCallback() {
-                @Override
-                public void onLinkChange(String type) {
-                    runOnUiThread(() -> loadingDialog.updateText("当前登录方式\n"+type));
-                }
-
-                @Override
-                public void onSuccess() {
-                    runOnUiThread(() -> {
-                        loadingDialog.dismiss();
-                        Log.d(MainActivity.class.getSimpleName(), smbManager.getSmbType() + ": Login Success");
-                        startActivity(new Intent(MainActivity.this, SmbFileActivity.class));
-                    });
-                }
-
-                @Override
-                public void onFailed() {
-                    runOnUiThread(() -> {
-                        loadingDialog.dismiss();
-                        Log.d(MainActivity.class.getSimpleName(), smbManager.getException().getExceptionString());
-                        Toast.makeText(MainActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
-                    });
+            boolean isSuccess = smbManager.linkStart(smbLinkInfo);
+            runOnUiThread(() -> {
+                loadingDialog.dismiss();
+                if (isSuccess){
+                    Log.d(MainActivity.class.getSimpleName(), smbManager.getSmbType() + ": Login Success");
+                    startActivity(new Intent(MainActivity.this, SmbFileActivity.class));
+                } else {
+                    Log.d(MainActivity.class.getSimpleName(), smbManager.getException().getExceptionString());
+                    Toast.makeText(MainActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
                 }
             });
-            smbManager.linkStart(smbLinkInfo);
-        }).start();
+
+        });
     }
 }

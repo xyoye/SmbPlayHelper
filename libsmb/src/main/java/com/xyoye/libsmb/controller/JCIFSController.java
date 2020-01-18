@@ -151,13 +151,7 @@ public class JCIFSController implements Controller {
 
     @Override
     public void release() {
-        if (inputStream != null) {
-            try {
-                inputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+
     }
 
     private List<SmbFileInfo> getFileInfoList(SmbFile[] smbFiles) {

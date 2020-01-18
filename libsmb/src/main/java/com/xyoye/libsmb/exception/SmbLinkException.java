@@ -39,6 +39,10 @@ public class SmbLinkException extends Exception {
         return stringBuilder.toString();
     }
 
+    public List<DetailException> getDetailExceptions() {
+        return detailExceptions;
+    }
+
     public static class DetailException {
         private SmbType smbType;
         private String errorMsg;

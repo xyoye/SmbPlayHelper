@@ -19,14 +19,13 @@ public class SmbManager {
     private boolean isLinked;
     private Controller controller;
     private SmbLinkException smbLinkException;
-    private LinkCallback linkCallback;
 
     private boolean smbJRPCEnable = true;
     private boolean smbJEnable = true;
     private boolean jcifsNGEnable = true;
     private boolean jcifsEnable = true;
 
-    public static class Holder {
+    private static class Holder {
         static SmbManager instance = new SmbManager();
     }
 
@@ -43,7 +42,7 @@ public class SmbManager {
      *
      * @param smbLinkInfo link data
      */
-    public void linkStart(SmbLinkInfo smbLinkInfo) {
+    public boolean linkStart(SmbLinkInfo smbLinkInfo) {
 
         smbLinkException.clearException();
 
@@ -56,57 +55,41 @@ public class SmbManager {
         //SMB V2
         isLinked = true;
 
-        if (smbJRPCEnable) {
-            if (linkCallback != null)
-                linkCallback.onLinkChange("SMBJ_RPC");
-            controller = new SMBJ_RPCController();
-            if (controller.linkStart(smbLinkInfo, smbLinkException)) {
-                mSmbType = SmbType.SMBJ_RPC;
-                if (linkCallback != null)
-                    linkCallback.onSuccess();
-                return;
-            }
-        }
-
         if (jcifsNGEnable) {
-            if (linkCallback != null)
-                linkCallback.onLinkChange("JCIFS_NG");
             controller = new JCIFS_NGController();
             if (controller.linkStart(smbLinkInfo, smbLinkException)) {
                 mSmbType = SmbType.JCIFS_NG;
-                if (linkCallback != null)
-                    linkCallback.onSuccess();
-                return;
+                return true;
+            }
+        }
+
+        if (smbJRPCEnable) {
+            controller = new SMBJ_RPCController();
+            if (controller.linkStart(smbLinkInfo, smbLinkException)) {
+                mSmbType = SmbType.SMBJ_RPC;
+                return true;
             }
         }
 
         if (smbJEnable && !SmbUtils.isTextEmpty(smbLinkInfo.getRootFolder())) {
-            if (linkCallback != null)
-                linkCallback.onLinkChange("SMBJ");
             controller = new SMBJController();
             if (controller.linkStart(smbLinkInfo, smbLinkException)) {
                 mSmbType = SmbType.SMBJ;
-                if (linkCallback != null)
-                    linkCallback.onSuccess();
-                return;
+                return true;
             }
         }
 
         //SMB V1
         if (jcifsEnable) {
-            if (linkCallback != null)
-                linkCallback.onLinkChange("JCIFS");
             controller = new JCIFSController();
             if (controller.linkStart(smbLinkInfo, smbLinkException)) {
                 mSmbType = SmbType.JCIFS;
-                if (linkCallback != null)
-                    linkCallback.onSuccess();
-                return;
+                return true;
             }
         }
 
         isLinked = false;
-        linkCallback.onFailed();
+        return false;
     }
 
     /**
@@ -137,22 +120,10 @@ public class SmbManager {
         return smbLinkException;
     }
 
-    public void setEnable(boolean smbJRPCEnable, boolean smbJEnable, boolean jcifsNGEnable, boolean jcifsEnable) {
+    public void setEnable(boolean jcifsNGEnable, boolean smbJRPCEnable, boolean smbJEnable, boolean jcifsEnable) {
+        this.jcifsNGEnable = jcifsNGEnable;
         this.smbJRPCEnable = smbJRPCEnable;
         this.smbJEnable = smbJEnable;
-        this.jcifsNGEnable = jcifsNGEnable;
         this.jcifsEnable = jcifsEnable;
-    }
-
-    public interface LinkCallback {
-        void onLinkChange(String type);
-
-        void onSuccess();
-
-        void onFailed();
-    }
-
-    public void setLinkCallback(LinkCallback callback) {
-        this.linkCallback = callback;
     }
 }

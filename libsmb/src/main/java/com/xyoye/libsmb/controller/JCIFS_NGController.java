@@ -174,8 +174,6 @@ public class JCIFS_NGController implements Controller {
     @Override
     public void release() {
         try {
-            if (inputStream != null)
-                inputStream.close();
             if (cifsContext != null)
                 cifsContext.close();
         } catch (IOException e) {

@@ -13,7 +13,7 @@ public class SPUtils {
     }
 
     private SPUtils() {
-        sharedPreferences = IApplication.getApplictionContext()
+        sharedPreferences = IApplication._getContext()
                 .getSharedPreferences("date", Context.MODE_PRIVATE);
     }
 
