@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         loadingDialog.show();
         IApplication.getExecutor().submit(() -> {
             SmbManager smbManager = SmbManager.getInstance();
-            smbManager.setEnable(smbJRPCEnable, smbJEnable, jcifsNGEnable, jcifsEnable);
+            smbManager.setEnable(jcifsNGEnable, smbJRPCEnable, smbJEnable, jcifsEnable);
             boolean isSuccess = smbManager.linkStart(smbLinkInfo);
             runOnUiThread(() -> {
                 loadingDialog.dismiss();
